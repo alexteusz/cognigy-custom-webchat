@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!-- CSS file to customize the webchat -->
+  <link rel="stylesheet" type="text/css" href="webchat.css">
+
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,20 +25,102 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <title>React App</title>
+</head>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <!-- 
+    The following <script> tag contains the basic code to embed the Cognigy WebchatWidget to your web application.
+    First, you have to import all wanted WebchatPlugins and the webchat.js itself.
+    
+    With the Analytics API you're able to handle all incoming or outcominig messages from the chatbot.
+
+    Links:
+      - WebchatWidget: https://github.com/Cognigy/WebchatWidget
+      - WebchatPlugins: https://github.com/Cognigy/WebchatPlugins
+      - Anaylics API: https://github.com/Cognigy/WebchatWidget/blob/master/docs/analytics-api.md
+  -->
+  <script
+    src="https://tempbucket-waanders.s3.eu-central-1.amazonaws.com/CognigyWebchatPlugins/adaptivecards.webchat-plugin.js"></script>
+  <script src="./id-capture-plugin.js"></script>
+  <script src="./webchat.js"></script>
+  <script>
+
+    const browserLanguage = window.navigator.language;
+
+    // Change the url of initWebchat to your chatbot's one
+    initWebchat('https://endpoint-demo.cognigy.ai/d49b026b576cd034d52b3427b3f31bd18db8994b03fdcc4caf22e154fa5e7efc', {
+      forceWebsockets: true,
+
+      // Webchat Settings
+      settings: {
+        startBehavior: 'none',
+        getStartedText: 'Get Started',
+        getStartedButtonText: 'GET_STARTED',
+        inputPlaceholder: 'Write reply',
+        enableSTT: false,
+        enableTTS: false,
+        messageLogoUrl: '', //public url to the wanted image
+        // You can change the person's and bot's avatar image dynamically
+        userAvatarUrl: undefined, //public url to the wanted image
+        agentAvatarUrl: undefined, //public url to the wanted image
+        enableConnectionStatusIndicator: false,
+        // If true, the little 'open webchat' button in the lower right of the screen is hidden
+        disableToggleButton: false,
+        // To do not focus on the webchat textfield, set this to true
+        disableInputAutofocus: false,
+        enablePersistentMenu: false,
+      }
+
+    }).then(webchat => {
+      window.cognigyWebchat = webchat;
+
+      // comment this line if the webchat shouldn't open immediately
+      webchat.open();
+
+      webchat.registerAnalyticsService(event => {
+        const { type, payload } = event;
+
+        switch (type) {
+          // CB When a user opens the chatbot
+          case 'webchat/open':
+            break;
+
+          // CB When a user closes the chatbot
+          case 'webchat/close':
+            break;
+
+          // CB When a user sends a message to the chatbot (either by clicking the “Send” button or by hitting Enter on the keyboard)
+          case 'webchat/incoming-message': {
+            const { text, data } = payload;
+
+            try {
+              // Trigger Welcome component
+              if (data.welcome) {
+                // Change the redux store to let App.js show the Welcome component
+                window.reduxStore.dispatch({ type: 'SHOW_WELCOME_COMPONENT', showWelcomeComponent: true });
+
+              }
+            } catch (e) { }
+
+
+            break;
+          }
+
+          case 'webchat/outgoing-message': {
+            const { text, data } = payload;
+            // Put the current user message to the redux store for Welcome component
+            window.reduxStore.dispatch({ type: 'SET_CURRENT_MESSAGE', currentMessage: text });
+
+            break;
+          }
+        }
+      })
+    });
+  </script>
+</body>
+
 </html>

@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './assets/css/App.css';
+import { connect } from 'react-redux';
+import Welcome from './components/Welcome';
 
-function App() {
+const App = (props) => {
+
+  // put redux store into component's state
+  const { showWelcomeComponent, currentMessage } = props;
+
+  const renderCustomComponents = () => {
+    if (showWelcomeComponent) {
+      return <Welcome currentMessage={currentMessage} />
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {renderCustomComponents()}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    showWelcomeComponent: state.showWelcomeComponent,
+    currentMessage: state.currentMessage
+  };
+};
+
+
+export default connect(mapStateToProps)(App);

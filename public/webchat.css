@@ -1,0 +1,166 @@
+/* In this file you can change the design of the default WebchatWidget to fit into your companie's cooperate design.
+Source: 
+    - https://github.com/Cognigy/WebchatWidget/blob/master/docs/css-customization.md 
+*/
+
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat {
+    width: 500px;
+    height:500px;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-header-bar {
+
+    background: rgb(5, 5, 131);
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-header-logo {
+
+    background-image: url(https://...);
+    margin-left: 10px;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-header-title {
+
+    text-align: center;
+    font-size: 20px;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-chat-history {
+
+    background-color: rgb(48, 48, 48);
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-message-row {
+
+    padding-right: 10px;
+
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .regular-message {
+
+    border:2px solid  white;
+    background: black;
+    color:white;
+    box-shadow: none;
+
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-avatar {
+
+    background-image: url(https://***.png);
+    width: 30px;
+    height: 28px;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-message-row.bot {
+
+    padding-right: 10px;
+
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .regular-message.bot {
+
+    background: rgb(5, 5, 131);    
+    box-shadow: none;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-avatar.bot {
+
+    background-image: url(https://***.png);
+    width: 30px;
+    height: 28px;
+    
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-message-row.user {
+
+    padding-right: 10px;
+
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .regular-message.user {
+
+    background: rgb(5, 5, 131);    
+    box-shadow: none;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-avatar.user {
+
+    background-image: url(https://***.png);
+    width: 30px;
+    height: 28px;
+    
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-message-row.agent {
+
+    padding-right: 10px;
+
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .regular-message.agent {
+
+    background: rgb(5, 5, 131);    
+    box-shadow: none;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-avatar.agent {
+
+    background-image: url(https://***.png);
+    width: 30px;
+    height: 28px;
+    
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-typing-indicator {
+
+    background: rgb(5, 5, 131);
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input {
+   
+    background: rgb(5, 5, 131);
+ }
+
+ [data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-menu-form {
+
+    border-bottom-color: rgb(5, 5, 131);
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-button-menu {
+
+    border-radius: 5px;
+    background-color: white;
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-message-input {
+   
+    color: white;
+ }
+
+ [data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-button-send {
+
+    border-radius: 20px;
+    background-color: white;
+    
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-persistent-menu {
+
+    background: white;
+
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-persistent-menu-title {
+ 
+    color: white;
+    
+}
+
+[data-cognigy-webchat-root] [data-cognigy-webchat].webchat .webchat-input-persistent-menu-item {
+   
+    border-color: white;
+    color:white;
+    
+ }
